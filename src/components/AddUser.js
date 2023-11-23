@@ -4,9 +4,9 @@ class AddUser extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			firsname: '',
-			lastname: '',
-			bio: '',
+			first_name: '',
+			last_name: '',
+			email: '',
 			age: 1,
 			isHappy: false
 		}
@@ -17,9 +17,9 @@ class AddUser extends React.Component {
 	render() {
 		return (
 			<form ref={(el) => this.myForm = el}>
-				<input placeholder="Ім'я" onChange={(ev) => this.setState({ firsname: ev.target.value })}></input>
-				<input placeholder="Прізвище" onChange={(ev) => this.setState({ lastname: ev.target.value })}></input>
-				<textarea placeholder="Біографія" onChange={(ev) => this.setState({ bio: ev.target.value })}></textarea>
+				<input placeholder="Ім'я" onChange={(ev) => this.setState({ first_name: ev.target.value })}></input>
+				<input placeholder="Прізвище" onChange={(ev) => this.setState({ last_name: ev.target.value })}></input>
+				<textarea placeholder="E-mail" onChange={(ev) => this.setState({ email: ev.target.value })}></textarea>
 				<input placeholder="Вік" onChange={(ev) => this.setState({ age: ev.target.value })}></input>
 
 				<label htmlFor="isHappy">Щасливий?</label>
@@ -28,9 +28,9 @@ class AddUser extends React.Component {
 				<button type="button" onClick={() => {
 					this.myForm.reset()
 					this.userAdd = {
-						firsname: this.state.firsname,
-						lastname: this.state.lastname,
-						bio: this.state.bio,
+						first_name: this.state.first_name,
+						last_name: this.state.last_name,
+						email: this.state.email,
 						age: this.state.age,
 						isHappy: this.state.isHappy
 					}

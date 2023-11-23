@@ -2,34 +2,28 @@ import React from 'react';
 import Header from './components/Header';
 import Users from './components/Users';
 import AddUser from './components/AddUser';
+import axios from 'axios';
 
+const baseUrl = 'https://reqres.in/api/users?page=1'
 
 class App extends React.Component {
 	constructor(props) {
 		super(props)
+
 		this.state = {
-			users: [
-				{
-					id: 1,
-					firstname: 'Bob',
-					lastname: 'Marley',
-					bio: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit',
-					age: 40,
-					isHappy: true,
-				},
-				{
-					id: 2,
-					firstname: 'John',
-					lastname: 'Doe',
-					bio: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit',
-					age: 22,
-					isHappy: false,
-				},
-			]
+			users: [],
+			counter: 1,
+
 		}
 		this.addUser = this.addUser.bind(this)
 		this.deleteUser = this.deleteUser.bind(this)
 		this.editUser = this.editUser.bind(this)
+	}
+
+	componentDidMount() {
+		axios.get(baseUrl).then((res) => {
+			this.setState({ users: res.data.data })
+		})
 	}
 
 	render() {
@@ -49,23 +43,29 @@ class App extends React.Component {
 	}
 
 	deleteUser(id) {
-		this.setState({
-			users: this.state.users.filter((el) => el.id !== id)
-		})
+		this.setState(prevState => ({
+			users: prevState.users.filter(el => el.id !== id)
+		}));
 	}
 
 	editUser(user) {
-		let allUsers = this.state.users
-		allUsers[user.id - 1] = user
-
-		this.setState({ users: [] }, () => {
-			this.setState({ users: [...allUsers] })
-		})
+		this.setState(prevState => {
+			const updatedUsers = prevState.users.map(existingUser => {
+				if (existingUser.id === user.id) {
+					return user;
+				}
+				return existingUser;
+			});
+			return { users: updatedUsers };
+		});
 	}
 
 	addUser(user) {
-		const id = this.state.users.length + 1
-		this.setState({ users: [...this.state.users, { id, ...user }] })
+		const newUser = { id: this.state.counter, ...user };
+		this.setState(prevState => ({
+			users: [...prevState.users, newUser],
+			counter: prevState.counter + 1,
+		}));
 	}
 }
 

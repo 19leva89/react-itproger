@@ -10,22 +10,23 @@ class User extends React.Component {
 		}
 	}
 
-	user = this.props.user
-
 	render() {
+		const { user } = this.props;
+
 		return (
 			<div className="user" >
-				<IoCloseCircleSharp onClick={() => this.props.onDelete(this.user.id)} className="delete-icon" />
+				<IoCloseCircleSharp onClick={() => this.props.onDelete(user.id)} className="delete-icon" />
 				<IoHammerSharp onClick={() => {
 					this.setState({
 						editForm: !this.state.editForm
 					})
 				}} className="edit-icon" />
-				<h3>{this.user.firstname} {this.user.lastname}</h3>
-				<p>{this.user.bio}</p>
-				<b>{this.user.isHappy === true ? 'Щасливий :)' : 'Не дуже :('}</b>
+				<h3>{user.first_name} {user.last_name}</h3>
+				<img src={user.avatar} alt={`${user.first_name}_${user.last_name}`} />
+				<p>{user.email}</p>
+				<b>{user.isHappy === true ? 'Щасливий :)' : 'Не дуже :('}</b>
 
-				{this.state.editForm && <AddUser user={this.user} onAdd={this.props.onEdit} />}
+				{this.state.editForm && <AddUser user={user} onAdd={this.props.onEdit} />}
 			</div>
 		)
 	}
