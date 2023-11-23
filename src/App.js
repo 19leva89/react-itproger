@@ -1,7 +1,7 @@
 import React from 'react';
-import Header from './components/Header';
-import Users from './components/Users';
-import AddUser from './components/AddUser';
+import Header from './component/Header';
+import Users from './component/Users';
+import AddUser from './component/AddUser';
 import axios from 'axios';
 
 const baseUrl = 'https://reqres.in/api/users?page=1'
